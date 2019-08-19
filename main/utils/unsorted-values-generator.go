@@ -1,7 +1,6 @@
-package main
+package utils
 
 import (
-	"fmt"
 	"math/rand"
 	"sync"
 	"time"
@@ -9,8 +8,8 @@ import (
 
 var wg sync.WaitGroup // 1
 
-func main() {
-	channel := make(chan int,1000)
+func GenerateUnsortedValues(size int) (values []int) {
+	channel := make(chan int,size)
 	for i := 0; i < cap(channel); i++ {
 		wg.Add(1)
 		go printAndSleep(i, channel)
@@ -18,9 +17,9 @@ func main() {
 	wg.Wait()
 	close(channel)
 	for number := range channel{
-		fmt.Print(number,",")
+		values=append(values,number)
 	}
-
+	return
 }
 
 func printAndSleep(number int, channel chan int) {
