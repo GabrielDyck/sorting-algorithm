@@ -15,11 +15,11 @@ import (
 */
 
 
-var comparitions =0
+var comparision =0
 var fullScans = 1
 var startTime= time.Now()
 func main () {
-	values:= utils.GenerateUnsortedValues(1000)
+	values:= utils.GenerateUnsortedValues(20)
 	//values:= []int{5,3,2,4,1}
 	fmt.Println("Init state of values: ", values)
 	unsorted:= true
@@ -36,14 +36,14 @@ func main () {
 
 	}
 	endTime:= time.Now()
-	fmt.Println("Comparitions: ", comparitions)
+	fmt.Println("Comparision: ", comparision)
 	fmt.Println("FullScans: ", fullScans)
-	fmt.Println("Elapsed time: ", endTime.Sub(startTime).Seconds())
+	fmt.Println("Elapsed time: ", endTime.Sub(startTime).Seconds(), " seconds")
 }
 
 
 func compareAndSort(values []int, index int)(hasToSort bool){
-	comparitions++
+	comparision++
 	if values[index] > values[index+1]{
 		fmt.Println("Sorting ",values[index] , " and ", values[index+1] )
 		temp:= values[index+1]
