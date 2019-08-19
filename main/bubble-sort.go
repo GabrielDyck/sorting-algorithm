@@ -14,42 +14,43 @@ import (
 [1*,2,3,4,5] -> [1,2*,3,4,5] -> [1,2,3*,4,5] -> [1,2,3,4*,5] -> [1,2,3,4,5*] ->
 */
 
-
-var comparision =0
+var comparision = 0
 var fullScans = 1
-var startTime= time.Now()
-func main () {
-	values:= utils.GenerateUnsortedValues(20)
+
+func main() {
 	//values:= []int{5,3,2,4,1}
+	values := utils.GenerateUnsortedValues(200)
+	startTime := time.Now()
 	fmt.Println("Init state of values: ", values)
-	unsorted:= true
+	unsorted := true
 	for unsorted {
-		fmt.Println("Iteration number: ",fullScans, ". State: ", values)
-		sorted:= true
-		for firstIndex := 0 ; firstIndex < len(values); firstIndex++{
-			fmt.Println("Using index: ", firstIndex, ". State: ",values)
-			if firstIndex + 1 >= len(values){continue}
-			sorted= !compareAndSort(values,firstIndex) && sorted
+		fmt.Println("Iteration number: ", fullScans, ". State: ", values)
+		sorted := true
+		for firstIndex := 0; firstIndex < len(values); firstIndex++ {
+			fmt.Println("Using index: ", firstIndex, ". State: ", values)
+			if firstIndex+1 >= len(values) {
+				continue
+			}
+			sorted = !compareAndSort(values, firstIndex) && sorted
 		}
-		unsorted=!sorted
+		unsorted = !sorted
 		fullScans++
 
 	}
-	endTime:= time.Now()
+	endTime := time.Now()
 	fmt.Println("Comparision: ", comparision)
 	fmt.Println("FullScans: ", fullScans)
 	fmt.Println("Elapsed time: ", endTime.Sub(startTime).Seconds(), " seconds")
 }
 
-
-func compareAndSort(values []int, index int)(hasToSort bool){
+func compareAndSort(values []int, index int) (hasToSort bool) {
 	comparision++
-	if values[index] > values[index+1]{
-		fmt.Println("Sorting ",values[index] , " and ", values[index+1] )
-		temp:= values[index+1]
-		values[index+1]=values[index]
-		values[index]=temp
-		hasToSort=true
+	if values[index] > values[index+1] {
+		fmt.Println("Sorting ", values[index], " and ", values[index+1])
+		temp := values[index+1]
+		values[index+1] = values[index]
+		values[index] = temp
+		hasToSort = true
 	}
 	return
 }
